@@ -1,6 +1,6 @@
-export interface ApiResponse {
+export interface ApiPaginatedResponse<T> {
     statusCode: number;
-    data:       Client[];
+    data:       T[];
     page:       number;
     pageSize:   number;
     total:      number;

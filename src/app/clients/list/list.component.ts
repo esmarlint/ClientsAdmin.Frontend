@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 import { map } from 'rxjs/operators';
-import { ApiResponse } from 'src/app/models/response.interface';
+import { ApiPaginatedResponse, Client } from 'src/app/models/response.interface';
+import { ClientService } from '../services/client.service';
 
 @Component({
   selector: 'app-list',
@@ -12,12 +13,12 @@ import { ApiResponse } from 'src/app/models/response.interface';
 })
 export class ListComponent implements OnInit {
 
-  response!: ApiResponse;
+  response!: ApiPaginatedResponse<Client>;
 
-  constructor(private http: HttpClient) { }
+  constructor(private clientService: ClientService) { }
 
   ngOnInit(): void {
-    this.http.get<ApiResponse>('https://localhost:44350/api/v1/client').subscribe((response) => {
+    this.clientService.getClients().subscribe(response=>{      
       this.response = response;
     })
   }

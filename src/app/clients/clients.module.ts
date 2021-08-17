@@ -5,17 +5,21 @@ import { ClientsRoutingModule } from './clients-routing.module';
 import { ListComponent } from './list/list.component';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AddressComponent } from './components/address/address.component';
 
 
 @NgModule({
   declarations: [
     ListComponent,
     AddComponent,
-    EditComponent
+    EditComponent,
+    AddressComponent
   ],
   imports: [
     CommonModule,
-    ClientsRoutingModule
+    ClientsRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class ClientsModule { }

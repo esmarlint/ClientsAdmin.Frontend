@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add',
@@ -8,9 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddComponent implements OnInit {
 
-  constructor() { }
+  mainForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router
+  ) {
+    this.mainForm = fb.group({
+      'socialReason': ['', [Validators.required]],
+      'comercialName': [''],
+      'phone': [''],
+      'rnc': ['']
+    })
+  }
 
   ngOnInit(): void {
+  }
+
+  save() {
+    if(this.mainForm.invalid) return;
+    
+    this.router.navigate(['clients/list']);
   }
 
 }
