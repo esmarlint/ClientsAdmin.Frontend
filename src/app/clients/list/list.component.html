@@ -1,0 +1,23 @@
+
+<div class="mt-5">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Razon Social</th>
+                <th>Nombre Comercial</th>
+                <th>RNC</th>
+                <th>Teléfono</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let client of response?.data">
+                <td>{{client.socialReason}}</td>
+                <td>{{client.comercialName}}</td>
+                <td>{{client.rnc}}</td>
+                <td>{{client.phone}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
