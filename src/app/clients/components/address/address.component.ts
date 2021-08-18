@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs/operators';
 import { Client } from 'src/app/models/response.interface';
 import { AddressService } from '../../services/address.service';
@@ -16,7 +17,7 @@ export class AddressComponent implements OnInit {
   deletedItems: Set<number> = new Set<number>();
 
   mainForm: FormGroup = this.fb.group({
-    addressArray: this.fb.array([], [Validators.required])
+    addressArray: this.fb.array([])
   });
 
   get elements(): FormArray {
@@ -25,7 +26,8 @@ export class AddressComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private addressService: AddressService
+    private addressService: AddressService,
+    private toast: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class AddressComponent implements OnInit {
           const element = this.fb.group({
             id: [address.id, Validators.required],
             idClient: [this.clientId, Validators.required],
-            address: [address.address, Validators.required],
+            address: [address.address, [Validators.required, Validators.maxLength(500)]],
           });
           this.elements.push(element);
         }
@@ -82,7 +84,10 @@ export class AddressComponent implements OnInit {
       this.addressService.delete(value, this.clientId!).subscribe(result => {
         this.deletedItems.clear();
       });
-    })
+    });
+
+    this.toast.info('Datos de direcciones actualizados', 'Notificación');
+
   }
 
 }
