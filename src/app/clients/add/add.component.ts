@@ -13,10 +13,10 @@ import { ClientService } from '../services/client.service';
 export class AddComponent implements OnInit {
 
   mainForm: FormGroup = this.fb.group({
-    'socialReason': ['', [Validators.required]],
-    'comercialName': ['', [Validators.required]],
-    'phone': [''],
-    'rnc': ['', [Validators.required]]
+    'socialReason': ['', [Validators.required, Validators.maxLength(100)]],
+    'comercialName': ['', [Validators.required, Validators.maxLength(100)]],
+    'phone': ['', [Validators.maxLength(20)]],
+    'rnc': ['', [Validators.required, Validators.maxLength(20)]]
   });
 
   constructor(
@@ -30,12 +30,16 @@ export class AddComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showError(field: string) {
+    return this.mainForm.get(field)?.touched && this.mainForm.get(field)?.errors;
+  }
+
   save() {
     if (this.mainForm.invalid) return;
-    
+
     const client = this.mainForm.value;
     this.clientService.createClient(client).subscribe((response: any) => {
-      
+
       this.toast.info('Empresa creada', 'Notificación');
       this.router.navigate(['/clients/', response.data.id]);
 

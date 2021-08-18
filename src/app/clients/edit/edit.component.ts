@@ -40,6 +40,10 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showError(field: string) {
+    return this.mainForm.get(field)?.touched && this.mainForm.get(field)?.errors;
+  }
+  
   save() {
     if (this.mainForm.invalid) return;
 

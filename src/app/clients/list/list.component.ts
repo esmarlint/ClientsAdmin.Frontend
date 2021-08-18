@@ -14,7 +14,7 @@ import { ClientService } from '../services/client.service';
 export class ListComponent implements OnInit {
 
   page: number = 1;
-  pageSize: number = 1;
+  pageSize: number = 10;
   total: number = 0;
 
   response!: ApiPaginatedResponse<Client>;
