@@ -16,10 +16,10 @@ export class EditComponent implements OnInit {
   clientId!: number;
 
   mainForm: FormGroup = this.fb.group({
-    'socialReason': ['', [Validators.required]],
-    'comercialName': [''],
-    'phone': [''],
-    'rnc': ['']
+    'socialReason': ['', [Validators.required, Validators.maxLength(100)]],
+    'comercialName': ['', [Validators.required, Validators.maxLength(100)]],
+    'phone': ['', [Validators.maxLength(20)]],
+    'rnc': ['', [Validators.required, Validators.maxLength(20)]]
   });;
 
   constructor(

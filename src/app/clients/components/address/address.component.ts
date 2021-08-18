@@ -45,7 +45,7 @@ export class AddressComponent implements OnInit {
           const element = this.fb.group({
             id: [address.id, Validators.required],
             idClient: [this.clientId, Validators.required],
-            address: [address.address, Validators.required],
+            address: [address.address, [Validators.required, Validators.maxLength(500)]],
           });
           this.elements.push(element);
         }
