@@ -17,7 +17,7 @@ export class ClientService {
 
   constructor(private http: HttpClient) { }
 
-  getClients(pagination: PatinationParameters | null = null): Observable<any> {
+  getAll(pagination: PatinationParameters | null = null): Observable<ApiPaginatedResponse<Client>> {
 
     const params = new HttpParams();
     if (pagination) {
@@ -29,19 +29,19 @@ export class ClientService {
     return this.http.get<ApiPaginatedResponse<Client>>(url, { params: params });
   }
 
-  getClientById(clientId: number): Observable<any> {
+  getById(clientId: number): Observable<any> {
     const url = `${environment.url}/api/v1/client/${clientId}`;
     return this.http.get<any>(url).pipe(
       map(response => response.data)
     );
   }
 
-  createClient(client: any) {
+  create(client: any): Observable<any> {
     const url = `${environment.url}/api/v1/client`;
     return this.http.post(url, client);
   }
 
-  update(clientId: number, client: any) {
+  update(clientId: number, client: any): Observable<any> {
     const url = `${environment.url}/api/v1/client/${clientId}`;
     return this.http.put(url, client);
   }

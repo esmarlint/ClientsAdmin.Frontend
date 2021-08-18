@@ -38,7 +38,7 @@ export class AddComponent implements OnInit {
     if (this.mainForm.invalid) return;
 
     const client = this.mainForm.value;
-    this.clientService.createClient(client).subscribe((response: any) => {
+    this.clientService.create(client).subscribe((response: any) => {
 
       this.toast.info('Empresa creada', 'Notificación');
       this.router.navigate(['/clients/', response.data.id]);

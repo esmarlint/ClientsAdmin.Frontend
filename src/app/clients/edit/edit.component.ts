@@ -20,7 +20,7 @@ export class EditComponent implements OnInit {
     'comercialName': ['', [Validators.required, Validators.maxLength(100)]],
     'phone': ['', [Validators.maxLength(20)]],
     'rnc': ['', [Validators.required, Validators.maxLength(20)]]
-  });;
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -29,15 +29,15 @@ export class EditComponent implements OnInit {
     private clientService: ClientService,
     private toast: ToastrService
   ) {
-    activedRoute.params.pipe(
-      switchMap(({ id }) => this.clientService.getClientById(id))
+  }
+
+  ngOnInit(): void {
+    this.activedRoute.params.pipe(
+      switchMap(({ id }) => this.clientService.getById(id))
     ).subscribe(client => {
       this.clientId = client.id;
       this.mainForm.reset({ ...client })
     });
-  }
-
-  ngOnInit(): void {
   }
 
   showError(field: string) {

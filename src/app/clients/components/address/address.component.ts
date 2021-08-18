@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Client } from 'src/app/models/response.interface';
 import { AddressService } from '../../services/address.service';
@@ -80,6 +81,7 @@ export class AddressComponent implements OnInit {
           this.addressService.update(value).subscribe(e => this.loadData());
         }
       });
+
     this.deletedItems.forEach(value => {
       this.addressService.delete(value, this.clientId!).subscribe(result => {
         this.deletedItems.clear();
