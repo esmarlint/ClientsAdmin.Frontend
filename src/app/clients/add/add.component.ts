@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ClientService } from '../services/client.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class AddComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private toast: ToastrService
   ) {
   }
 
@@ -33,9 +35,10 @@ export class AddComponent implements OnInit {
     
     const client = this.mainForm.value;
     this.clientService.createClient(client).subscribe((response: any) => {
-      console.log(response);
       
+      this.toast.info('Empresa creada', 'Notificación');
       this.router.navigate(['/clients/', response.data.id]);
+
     })
   }
 

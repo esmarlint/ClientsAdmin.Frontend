@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { switchMap } from 'rxjs/operators';
 import { ClientService } from '../services/client.service';
 
@@ -25,7 +26,8 @@ export class EditComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private activedRoute: ActivatedRoute,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private toast: ToastrService
   ) {
     activedRoute.params.pipe(
       switchMap(({ id }) => this.clientService.getClientById(id))
@@ -43,8 +45,10 @@ export class EditComponent implements OnInit {
 
     const element = this.mainForm.value;
     this.clientService.update(this.clientId, element).subscribe(response => {
-
+      this.toast.info('Empresa actualizada', 'Notificación');
     });
   }
+
+
 
 }
