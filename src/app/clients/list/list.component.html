@@ -1,6 +1,6 @@
 
 <div class="mt-5">
-    <h1>Clientes</h1>
+    <h1>Empresas</h1>
     <hr>
     
     <button class="btn btn-success mb-2" [routerLink]="['/clients/add']">Agregar</button>
@@ -29,5 +29,9 @@
             </tr>
         </tbody>
     </table>
+
+    <div class="alert alert-info" *ngIf="!response?.data?.length">
+        No hay empresas registradas
+    </div>
 
 </div>

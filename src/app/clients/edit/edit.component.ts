@@ -12,7 +12,7 @@ import { ClientService } from '../services/client.service';
 })
 export class EditComponent implements OnInit {
 
-  clientId!:number;
+  clientId!: number;
 
   mainForm: FormGroup = this.fb.group({
     'socialReason': ['', [Validators.required]],
@@ -29,7 +29,7 @@ export class EditComponent implements OnInit {
   ) {
     activedRoute.params.pipe(
       switchMap(({ id }) => this.clientService.getClientById(id))
-    ).subscribe(client=>{
+    ).subscribe(client => {
       this.clientId = client.id;
       this.mainForm.reset({ ...client })
     });
@@ -39,7 +39,12 @@ export class EditComponent implements OnInit {
   }
 
   save() {
-    if(this.mainForm.invalid) return;
+    if (this.mainForm.invalid) return;
+
+    const element = this.mainForm.value;
+    this.clientService.update(this.clientId, element).subscribe(response => {
+
+    });
   }
 
 }

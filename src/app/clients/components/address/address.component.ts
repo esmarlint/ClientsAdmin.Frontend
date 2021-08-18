@@ -13,6 +13,7 @@ import { AddressService } from '../../services/address.service';
 export class AddressComponent implements OnInit {
 
   @Input() clientId?: number;
+  deletedItems: Set<number> = new Set<number>();
 
   mainForm: FormGroup = this.fb.group({
     addressArray: this.fb.array([], [Validators.required])
@@ -28,10 +29,15 @@ export class AddressComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData() {
     this.addressService.getAll(this.clientId!).pipe(
       map(res => res.data)
     )
       .subscribe(collection => {
+        this.elements.clear();
         for (const address of collection) {
 
           const element = this.fb.group({
@@ -54,23 +60,29 @@ export class AddressComponent implements OnInit {
     this.elements.push(element);
   }
 
-  remove(id: number) {
+  remove(addressId: number, id: number) {
     this.elements.removeAt(id);
+    if (addressId != 0) {
+      this.deletedItems.add(addressId);
+    }
   }
 
   save() {
     if (this.mainForm.invalid) return;
 
-    console.log("hola");
-    
-    console.log(this.mainForm.value.addressArray.filter((e: any) => e.id == 0));
-    
-
-    this.mainForm.value.addressArray.filter((e: any) => e.id == 0)
+    this.mainForm.value.addressArray
       .forEach((value: any) => {
-        this.addressService.create(value).subscribe();
-    });
-
+        if (value.id == 0) {
+          this.addressService.create(value).subscribe(e => this.loadData());
+        } else {
+          this.addressService.update(value).subscribe(e => this.loadData());
+        }
+      });
+    this.deletedItems.forEach(value => {
+      this.addressService.delete(value, this.clientId!).subscribe(result => {
+        this.deletedItems.clear();
+      });
+    })
   }
 
 }

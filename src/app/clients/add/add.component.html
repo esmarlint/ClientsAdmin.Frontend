@@ -1,24 +1,24 @@
-<h1>Agregar cliente</h1>
+<h1>Agregar Empresa '{{mainForm.get('comercialName')?.value}}'</h1>
 <hr>
-<form class="row g-3" [formGroup]="mainForm">
-    <div class="col-md-6">
-      <label class="form-label">Nombre comercial:</label>
-      <input formControlName="comercialName" type="email" class="form-control" >
-    </div>
-    <div class="col-md-6">
-      <label class="form-label">Razon Social:</label>
-      <input formControlName="socialReason" type="text" class="form-control">
-    </div>
-    <div class="col-12">
-      <label for="inputAddress" class="form-label">RNC:</label>
-      <input formControlName="rnc" type="text" class="form-control" >
-    </div>
-    <div class="col-12">
+<form class="row g-3" [formGroup]="mainForm" (ngSubmit)="save()">
+  <div class="col-md-6">
+    <label class="form-label">Nombre comercial:</label>
+    <input formControlName="comercialName" type="email" class="form-control">
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Razon Social:</label>
+    <input formControlName="socialReason" type="text" class="form-control">
+  </div>
+  <div class="col-12">
+    <label for="inputAddress" class="form-label">RNC:</label>
+    <input formControlName="rnc" type="text" class="form-control">
+  </div>
+  <div class="col-12">
     <label for="inputAddress2" class="form-label">Teléfono:</label>
-      <input formControlName="phone" type="text" class="form-control" >
-    </div>
-    
-    <div class="col-12">
-      <button (click)="save()" type="submit" class="btn btn-primary">Guardar</button>
-    </div>
-  </form>
+    <input formControlName="phone" type="text" class="form-control">
+  </div>
+
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary" [disabled]="mainForm.invalid">Guardar</button>
+  </div>
+</form>

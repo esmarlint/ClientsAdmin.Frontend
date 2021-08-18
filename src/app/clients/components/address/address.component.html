@@ -13,7 +13,7 @@
             <input formControlName="address" type="text" class="form-control">
             <input formControlName="idClient" type="hidden">
             <input formControlName="id" type="hidden">
-            <button (click)="remove(i)" class="btn btn-outline-danger" type="button" >Eliminar</button>
+            <button (click)="remove(item.value.id,i)" class="btn btn-outline-danger" type="button" >Eliminar</button>
         </div>
     </div>
 
@@ -21,7 +21,3 @@
         No hay direcciones
     </div>
 </form>
-
-<pre>
-{{mainForm.value | json}}
-</pre>

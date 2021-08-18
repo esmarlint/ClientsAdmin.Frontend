@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ClientService } from '../services/client.service';
 
 @Component({
   selector: 'app-add',
@@ -10,27 +11,32 @@ import { Router } from '@angular/router';
 })
 export class AddComponent implements OnInit {
 
-  mainForm: FormGroup;
+  mainForm: FormGroup = this.fb.group({
+    'socialReason': ['', [Validators.required]],
+    'comercialName': ['', [Validators.required]],
+    'phone': [''],
+    'rnc': ['', [Validators.required]]
+  });
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private clientService: ClientService
   ) {
-    this.mainForm = fb.group({
-      'socialReason': ['', [Validators.required]],
-      'comercialName': [''],
-      'phone': [''],
-      'rnc': ['']
-    })
   }
 
   ngOnInit(): void {
   }
 
   save() {
-    if(this.mainForm.invalid) return;
+    if (this.mainForm.invalid) return;
     
-    this.router.navigate(['clients/list']);
+    const client = this.mainForm.value;
+    this.clientService.createClient(client).subscribe((response: any) => {
+      console.log(response);
+      
+      this.router.navigate(['/clients/', response.data.id]);
+    })
   }
 
 }

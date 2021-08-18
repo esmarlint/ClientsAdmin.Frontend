@@ -1,11 +1,11 @@
-<h1>Editar cliente </h1>
+<h1>Editar Empresa '{{mainForm.get('comercialName')?.value}}'</h1>
 <hr>
 
 <div class="row">
     <div class="col-6">
         <h5>Cliente</h5>
         <hr>
-        <form class="row g-3" [formGroup]="mainForm">
+        <form class="row g-3" [formGroup]="mainForm" (ngSubmit)="save()">
             <div class="col-md-6">
                 <label class="form-label">Nombre comercial:</label>
                 <input formControlName="comercialName" type="email" class="form-control">
@@ -24,7 +24,7 @@
             </div>
 
             <div class="col-12">
-                <button (click)="save()" type="submit" class="btn btn-primary">Guardar</button>
+                <button [disabled]="mainForm.invalid" type="submit" class="btn btn-primary">Guardar</button>
             </div>
         </form>
     </div>

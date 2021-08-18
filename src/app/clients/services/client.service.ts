@@ -12,7 +12,7 @@ export class ClientService {
 
   constructor(private http: HttpClient) { }
 
-  getClients(pagination:any = null):Observable<any> {
+  getClients(pagination: any = null): Observable<any> {
     const url = `${environment.url}/api/v1/client`;
     return this.http.get<ApiPaginatedResponse<Client>>(url);
   }
@@ -20,13 +20,18 @@ export class ClientService {
   getClientById(clientId: number): Observable<any> {
     const url = `${environment.url}/api/v1/client/${clientId}`;
     return this.http.get<any>(url).pipe(
-      map(response=>response.data)
+      map(response => response.data)
     );
   }
 
   createClient(client: any) {
     const url = `${environment.url}/api/v1/client`;
     return this.http.post(url, client);
+  }
+
+  update(clientId: number, client: any) {
+    const url = `${environment.url}/api/v1/client/${clientId}`;
+    return this.http.put(url, client);
   }
 
 }
